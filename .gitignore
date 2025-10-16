@@ -1,0 +1,18 @@
+# Backup files
+*.bak
+*.backup
+extract_for_hed.py
+list.txt
+# Results and output files
+comparison_results/
+data/
+enhanced_comparison_results*/
+hed_input_files/*.txt
+hed_input_files/results/
+*env/
+netmhcpan-promiscuity/
+mhcflurry/*.tsv
+mhcflurry/mhcflurry_env/
+results*/
+zaloha*/
+HLA-HED/
