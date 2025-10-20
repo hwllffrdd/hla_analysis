@@ -3,6 +3,7 @@
 *.backup
 extract_for_hed.py
 list.txt
+finegrainedpersonalaccesstoken.txt
 # Results and output files
 comparison_results/
 data/

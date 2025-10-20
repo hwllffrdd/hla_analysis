@@ -32,3 +32,47 @@ for r1 in /input_data/*_R1.fastq.gz; do \
   r2="/input_data/${sample}_R2.fastq.gz"; \
   /opt/t1k/run-t1k -1 "$r1" -2 "$r2" -f /opt/t1k/hlaidx/hlaidx_dna_seq.fa --preset hla-wes -o "/output/${sample}_t1k_result"; \
 done'
+
+loop for KIR analyis:
+
+for r1 in /input_data/*_R1.fastq.gz; do
+  sample=$(basename "$r1" _R1.fastq.gz)
+  r2="/input_data/${sample}_R2.fastq.gz"
+
+  /opt/t1k/run-t1k \
+    -1 "$r1" \
+    -2 "$r2" \
+    -f /opt/t1k/kiridx/kiridx_dna_seq.fa \
+    --preset kir-wes \
+    -o "/output/${sample}_t1k_kir_result"
+done
+
+loop for combined HLA and KIR:
+
+for r1 in /input_data/*_R1.fastq.gz; do
+  sample=$(basename "$r1" _R1.fastq.gz)
+  r2="/input_data/${sample}_R2.fastq.gz"
+
+  echo "Processing sample: $sample"
+  
+  # HLA typing
+  echo "Running HLA typing..."
+  /opt/t1k/run-t1k \
+    -1 "$r1" \
+    -2 "$r2" \
+    -f /opt/t1k/hlaidx/hlaidx_dna_seq.fa \
+    --preset hla-wes \
+    -o "/output/${sample}_hla"
+  
+  # KIR typing
+  echo "Running KIR typing..."
+  /opt/t1k/run-t1k \
+    -1 "$r1" \
+    -2 "$r2" \
+    -f /opt/t1k/kiridx/kiridx_dna_seq.fa \
+    --preset kir-wes \
+    -o "/output/${sample}_kir"
+    
+  echo "Completed: $sample"
+  echo "---"
+done
