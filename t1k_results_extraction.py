@@ -54,7 +54,7 @@ class T1KExtractor:
         
         try:
             # Main genotype results
-            genotype_file = self.t1k_dir / f"{sample_id}_t1k_result_genotype.tsv"
+            genotype_file = self.t1k_dir / f"{sample_id}_hla_genotype.tsv"
             if not genotype_file.exists():
                 results['errors'].append(f"Genotype file not found: {genotype_file}")
                 return results
@@ -98,7 +98,7 @@ class T1KExtractor:
                             results['other_genes'][gene] = gene_result
             
             # Extract novel variants from VCF file
-            vcf_file = self.t1k_dir / f"{sample_id}_t1k_result_allele.vcf"
+            vcf_file = self.t1k_dir / f"{sample_id}_hla_allele.vcf"
             if vcf_file.exists():
                 with open(vcf_file, 'r') as f:
                     variant_count = 0
@@ -434,8 +434,8 @@ def main():
             print(f"Error: Directory {base_dir} does not exist")
             sys.exit(1)
         
-        t1k_files = list(t1k_dir.glob('*_t1k_result_genotype.tsv'))
-        sample_list = [f.name.replace('_t1k_result_genotype.tsv', '') for f in t1k_files]
+        t1k_files = list(t1k_dir.glob('*_hla_genotype.tsv'))
+        sample_list = [f.name.replace('_hla_genotype.tsv', '') for f in t1k_files]
         sample_list = sorted(list(set(sample_list)))
     
     if not sample_list:
